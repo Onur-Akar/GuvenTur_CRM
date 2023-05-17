@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewBag.Title = "User_Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    bool isAdmin = ViewBag.User.Level_Id == 1 ? true : false;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li>Profil Yönetimi<i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"> <a href="#tab_1_1" data-toggle="tab"> @ViewBag.User.User_First_Name @ViewBag.User.User_Last_Name</a></li>
+                    @if (Session["UserLevel"].ToString() == "1")
+                    {
+                        <li> <a href="#tab_1_3" data-toggle="tab">Yönetim </a></li>
+                    }
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="tab_1_1">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="fa fa-edit"></i>Profilim </div>
+                                <div class="actions"> <a href="/Settings/Add_New_User/@ViewBag.User.Id" class="btn default btn-sm"> <i class="fa fa-pencil"></i> Düzenle </a></div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row profile-account">
+                                    <div class="col-md-3">
+                                        <ul class="list-unstyled profile-nav">
+                                            <li> <img src="" class="img-responsive" alt="" /> </li>
+                                        </ul>
+                                        <ul class="ver-inline-menu tabbable margin-bottom-10">
+
+                                            <li class="active"> <a data-toggle="tab" href="#tab_1-1"> <i class="fa fa-cog"></i> Profil Bilgileri </a> <span class="after"> </span> </li>
+                                            <li> <a data-toggle="tab" href="#tab_3-3"> <i class="fa fa-lock"></i> Şifre Değiştir </a> </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="tab-content">
+                                            <div id="tab_1-1" class="tab-pane active">
+                                                <div class="portlet blue box">
+                                                    <div class="portlet-body">
+                                                        <div class="row static-info">
+                                                            <div class="col-md-2 name"> Adı</div>
+                                                            <div class="col-md-7 value"> @ViewBag.User.User_First_Name</div>
+                                                        </div>
+                                                        <div class="row static-info">
+                                                            <div class="col-md-2 name"> Soyadı</div>
+                                                            <div class="col-md-7 value"> @ViewBag.User.User_Last_Name </div>
+                                                        </div>
+                                                        <div class="row static-info">
+                                                            <div class="col-md-2 name"> Telefon (Hat)</div>
+                                                            <div class="col-md-7 value"> @ViewBag.User.Phone_Line </div>
+                                                        </div>
+                                                        <div class="row static-info">
+                                                            <div class="col-md-2 name"> Gsm </div>
+                                                            <div class="col-md-7 value"> @ViewBag.User.Gsm </div>
+                                                        </div>
+                                                        <div class="row static-info">
+                                                            <div class="col-md-2 name"> E-Mail </div>
+                                                            <div class="col-md-7 value"> @ViewBag.User.Email </div>
+                                                        </div>
+                                                        <div class="row static-info">
+                                                            <div class="col-md-2 name"> Adres </div>
+                                                            <div class="col-md-7 value"> @ViewBag.User.Address </div>
+                                                        </div>
+                                                        <div class="row static-info">
+                                                            <div class="col-md-2 name"> Tc. No </div>
+                                                            <div class="col-md-7 value"> @ViewBag.User.User_TC </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="tab_3-3" class="tab-pane">
+                                                <form action="#">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Eski Şifreniz</label>
+                                                        <input type="password" class="form-control" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Yeni Şifreniz</label>
+                                                        <input type="password" class="form-control" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tekrar Yeni Şifreniz</label>
+                                                        <input type="password" class="form-control" />
+                                                    </div>
+                                                    <div class="margin-top-10"> <a href="#" class="btn green"> Kaydet </a></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end col-md-9-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_3">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <ul class="ver-inline-menu tabbable margin-bottom-10">
+
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab_1">
+                                            <i class="fa fa-book"></i> Firmalar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab_2">
+                                            <i class="fa fa-tachometer"></i> Araçlar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab_3">
+                                            <i class="fa fa-users"></i> Üyeler
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content">
+                                    <div id="tab_1" class="tab-pane active">
+                                        <form action="#">
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <td>
+                                                        Yeni bir firma ekleme yapabilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Add_Company" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Herhangi bir firma için düzenleme yapabilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Edit_Company" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Herhangi bir firmayı silebilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Delete_Company" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Hesapları Görebilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.See_Comp_Accounts" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--end profile-settings-->
+                                            <div class="margin-top-10" hidden="@isAdmin">
+                                                <a href="#" class="btn green">
+                                                    Kaydet
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="tab_2" class="tab-pane">
+                                        <form action="#">
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <td>
+                                                        Yeni bir araç ekleme yapabilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Add_Vehicle" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Herhangi bir araç için düzenleme yapabilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Edit_Vehicle" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Herhangi bir araç silebilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Delete_Vehicle" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Hesapları Görebilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.See_Vehicle_Accounts" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--end profile-settings-->
+                                            <div class="margin-top-10" hidden="@isAdmin">
+                                                <a href="#" class="btn green">
+                                                    Kaydet
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="tab_3" class="tab-pane">
+                                        <form action="#">
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <td>
+                                                        Yeni bir üye ekleme yapabilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Add_Member" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Herhangi bir üye için düzenleme yapabilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Edit_Member" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Herhangi bir üye silebilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.Delete_Member" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Hesapları Görebilir.
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked="@ViewBag.UserSettings.See_Member_Accounts" disabled="@isAdmin" class="make-switch">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--end profile-settings-->
+                                            <div class="margin-top-10" hidden="@isAdmin">
+                                                <a href="#" class="btn green">
+                                                    Kaydet
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

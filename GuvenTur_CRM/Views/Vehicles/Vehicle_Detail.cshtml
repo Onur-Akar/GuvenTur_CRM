@@ -1,0 +1,334 @@
+﻿@{
+    ViewBag.Title = "Vehicle_Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Menü
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#">
+                            Excel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Yazdır
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Vehicles/Vehicles"> Araçlar </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Vehicles/Vehicle_Detail/@ViewBag.Vehicles.Id"> @ViewBag.Vehicles.Vehicle_Plate </a> <i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-body">
+                <br>
+                <ul class="nav nav-tabs">
+                    <li class="active"> <a href="#tab_1_1" data-toggle="tab"> Araç Bilgileri </a></li>
+                    <li> <a href="#tab_1_2" data-toggle="tab"> Üye Listesi </a></li>
+                    <li> <a href="#tab_1_3" data-toggle="tab"> Maaş  </a></li>
+                    <li> <a href="#tab_1_4" data-toggle="tab"> Bakım  </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="tab_1_1">
+                        <div class="portlet blue box">
+                            <div class="portlet-title">
+                                <div class="caption"> 34 KM 547  </div>
+                                <div class="actions">
+                                    <a href="/Vehicles/Add_New_Vehicle/@ViewBag.Vehicles.Id" class="btn default btn-sm"> <i class="fa fa-pencil"></i> Düzenle </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <h4 class="form-section"><strong>Şoför Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> TC: </div>
+                                    <div class="col-md-7 value">@ViewBag.Vehicles.Driver_TC</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Şoför Adı: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Driver_Name</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Ülke: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Countries.Country_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> İl: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Counties.County_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> İlçe: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Town.Town_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Adres: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Address </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Telefon: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Phone </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Cep </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Gsm </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> E-mail: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Email </div>
+                                </div>
+                                <h4 class="form-section"><strong>Araç ve Maaş Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Araç No: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Vehicle_No </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Plaka: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Vehicle_Plate </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Güzergah: </div>
+                                    <div class="col-md-7 value"> @ViewBag.ServiceName </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Maaş: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Vehicles.Salary TL </div>
+                                </div>
+                                <h4 class="form-section"><strong>Bakım ve Evrak Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> İlk KM Bakımı: </div>
+                                    <div class="col-md-7 value"> @ViewBag.FileInfo.First_Km_Maintenance </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Sonraki KM Bakımı: </div>
+                                    <div class="col-md-7 value"> @ViewBag.FileInfo.Next_Km_Maintenance </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Trafik Sigorta Tarihi: </div>
+                                    <div class="col-md-7 value"> @ViewBag.TrafficInsurance </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Muayene Tarihi: </div>
+                                    <div class="col-md-7 value"> @ViewBag.ExaminDate </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn purple"><i class="fa fa-check"></i> Ruhsat</button>
+                                        <button type="submit" class="btn purple"><i class="fa fa-check"></i> Trafik Sigortası</button>
+                                        <button type="submit" class="btn purple"><i class="fa fa-check"></i> Muayene</button>
+                                        <button type="submit" class="btn purple"><i class="fa fa-check"></i> Ehliyet</button>
+                                        <button type="submit" class="btn purple"><i class="fa fa-check"></i> Sicil Kaydı</button>
+                                        <button type="submit" class="btn purple"><i class="fa fa-check"></i> GBT</button>
+                                        <button type="submit" class="btn purple"><i class="fa fa-check"></i> Sağlık Raporu</button>
+                                    </div>
+                                </div>
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_2">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-edit"></i>Üye Listesi
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="reload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                    <thead>
+                                        <tr>
+                                            <th> Üye Grubu</th>
+                                            <th> Üye Adı </th>
+                                            <th> Tel </th>
+                                            <th> Cep </th>
+                                            <th> E-mail </th>
+                                            <th> Alacak </th>
+                                            <th> Alınan </th>
+                                            <th> Kalan </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Members)
+                                        {
+                                            <tr>
+                                                <td> @item.Member_Groups.Member_Group_Name </td>
+                                                <td><a href="/Members/Member_Detail/@item.Id"> @item.Member_Name </a></td>
+                                                <td> @item.Phone </td>
+                                                <td> @item.Gsm </td>
+                                                <td> @item.Email</td>
+                                                <td> @ViewBag.Borrows[i] TL </td>
+                                                <td> @ViewBag.Payments[i] TL </td>
+                                                @{ int total = ViewBag.Borrows[i] - ViewBag.Payments[i];}
+                                                <td> @total TL </td>
+                                            </tr>
+                                                        i++;
+                                                    }
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="well">
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Toplam Üye: </div>
+                                                <div class="col-md-3 value"> @i </div>
+                                            </div>
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Toplam Alacak: </div>
+                                                <div class="col-md-3 value"> @ViewBag.TotalBorrows TL </div>
+                                            </div>
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Toplam Alınan: </div>
+                                                <div class="col-md-3 value"> @ViewBag.TotalPayments TL </div>
+                                            </div>
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Toplam Kalan: </div>
+                                                @{ int totalRemaining = ViewBag.TotalBorrows - ViewBag.TotalPayments;}
+                                                <div class="col-md-3 value"> @totalRemaining TL </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_3">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-edit"></i>Maaş Hareketleri
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="reload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_2">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:130px;"> Tarih/Saat </th>
+                                            <th> Ödeme Şekli</th>
+                                            <th> Ödenen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.PaymentInfo)
+                                        {
+                                            <tr>
+                                                <td>@ViewBag.PayDate[j] / @ViewBag.PayTime[j]</td>
+                                                <td align="center" width="130"><span class="label label-danger"> @item.Payment_Types.Payment_Type </span></td>
+                                                <td>@item.Payment TL</td>
+                                            </tr>
+                                            j++;
+                                        }
+
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-12"></div>
+                                    <div class="col-md-12">
+                                        <div class="well">
+                                            <div class="row static-info">
+                                                <div class="col-md-2 name"> Maaş: </div>
+                                                <div class="col-md-8 value"> @ViewBag.Vehicles.Salary TL </div>
+                                            </div>
+                                            <div class="row static-info">
+                                                <div class="col-md-2 name"> Ödenen: </div>
+                                                <div class="col-md-8 value"> @ViewBag.TotalVehcPayments TL </div>
+                                            </div>
+                                            <div class="row static-info">
+                                                <div class="col-md-2 name"> Kalan: </div>
+                                                @{ int totalVehcRemaining = ViewBag.Vehicles.Salary - ViewBag.TotalVehcPayments;}
+                                                <div class="col-md-8 value"> @totalVehcRemaining TL </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_4">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-edit"></i>Bakım Hareketleri
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="reload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_2">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:130px;"> Tarih</th>
+                                            <th style="width:130px;"> KM</th>
+                                            <th style="width:130px;"> Bakım Şekli</th>
+                                            <th> Ödenen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Maintenances)
+                                        {
+                                            <tr>
+                                                <td>@ViewBag.MainDate[k]</td>
+                                                <td>@item.Vehicle_Km</td>
+                                                <td>@item.Maintenance_Types.Maintenance_Type</td>
+                                                <td>@item.Maintenance_Payment TL</td>
+                                            </tr>
+                                            k++;
+                                        }
+
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-12"></div>
+                                    <div class="col-md-12">
+                                        <div class="well">
+                                            <div class="row static-info">
+                                                <div class="col-md-2 name"> Toplam Ödenen: </div>
+                                                <div class="col-md-8 value"> @ViewBag.TotalMainPayment TL </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+
+    </div>
+</div>

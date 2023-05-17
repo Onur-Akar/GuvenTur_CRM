@@ -1,0 +1,368 @@
+﻿@{
+    ViewBag.Title = "Add_New_Member";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/projScripts/guventur.js"></script>
+<script src="~/Scripts/jquery.mask.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Companies/Index"> Firmalar </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Members/Add_New_Member"> Yeni Üye Ekle </a> <i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-reorder"></i>Üye Bilgileri
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal form-row-sepe">
+                        <div class="form-body">
+                            <h4 class="form-section"><strong>Üye Bilgileri</strong></h4>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Üye Grubu</label>
+                                <div class="col-md-4">
+                                    <select name="select" class="form-control select2me" id="memberGroup" data-placeholder="Select...">
+                                        @foreach (var item in ViewBag.Member_Groups)
+                                        {
+                                            if (ViewBag.Member != null)
+                                            {
+                                                if (item.Member_Group_Name == ViewBag.Member.Member_Groups.Member_Group_Name)
+                                                {
+                                                    <option selected value="@item.Id">@item.Member_Group_Name</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Member_Group_Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Üye Adı</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="memberName" id="memberName" value="@ViewBag.Member.Member_Name">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="memberName" id="memberName">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Ülke</label>
+                                <div class="col-md-4">
+                                    <select name="select2" id="countries" class="form-control select2me" data-placeholder="Ülke Seçiniz">
+                                        @foreach (var item in ViewBag.Country)
+                                        {
+                                            if (ViewBag.Member != null)
+                                            {
+                                                if (item.Country_Name == ViewBag.Member.Countries.Country_Name)
+                                                {
+                                                    <option selected value="@item.Id">@item.Country_Name</option>
+                                                }
+                                            }
+                                            <option value="@item.Id">@item.Country_Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">İl</label>
+                                <div class="col-md-4">
+                                    <select name="select" id="counties" class="form-control select2me" data-placeholder="Şehir Seçiniz" onchange="$.getTownsById()">
+                                        @foreach (var item in ViewBag.Counties)
+                                        {
+                                            if (ViewBag.Member != null)
+                                            {
+                                                if (item.County_Name == ViewBag.Member.Counties.County_Name)
+                                                {
+                                                    <option selected onselect="$.getTownsById()" value="@item.Id">@item.County_Name</option>
+                                                }
+                                            }
+                                            <option value="@item.Id">@item.County_Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">İlçe</label>
+                                <div class="col-md-4">
+                                    <select name="select3" id="towns" class="form-control select2me" data-placeholder="İlçe Seçiniz">
+                                        @if (ViewBag.Member != null)
+                                        {
+                                            foreach (var item in ViewBag.Towns)
+                                            {
+                                                if (item.Town_Name == ViewBag.Member.Town.Town_Name)
+                                                {
+                                                    <option selected value="@item.Id">@item.Town_Name</option>
+                                                }
+                                                <option value="@item.Id">@item.Town_Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Adres</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="addres" id="addreses" value="@ViewBag.Member.Address">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="adress" id="addreses">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Telefon</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="phone" id="phones" value="@ViewBag.Member.Phone">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="phone" id="phones">
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Gsm</label>
+                                <div class="col-md-4">
+                                    @if (@ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="gsm" id="gsm" value="@ViewBag.Member.Gsm">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="gsm" id="gsm">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">E-Mail</label>
+                                <div class="col-md-4">
+                                    @if (@ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="email" id="memEmail" value="@ViewBag.Member.Email">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="email" id="memEmail">
+                                    }
+                                </div>
+                            </div>
+
+                            <h4 class="form-section"><strong>Servis ve Ücret Bilgileri</strong></h4>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Servis</label>
+                                <div class="col-md-4">
+                                    <select name="select3" id="services" class="form-control select2me" onchange="$.getVehiclesInfoById('member')" data-placeholder="Select...">
+                                        <option>Seçiniz</option>
+                                        @foreach (var item in ViewBag.Services)
+                                        {
+                                            if (ViewBag.Member != null)
+                                            {
+                                                if (item.Id == ViewBag.Member.Service_Id)
+                                                {
+                                                    <option selected onselect="$.getVehiclesInfoById('member')" value="@item.Id">@item.Service_Name</option>
+                                                }
+                                            }
+                                            <option value="@item.Id">@item.Service_Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Araç No</label>
+                                <div class="col-md-4">
+                                    <select name="select3" class="form-control select2me" id="vehicleNo" data-placeholder="Select...">
+                                        <option>Seçiniz</option>
+                                        @if (ViewBag.Member != null)
+                                        {
+                                            foreach (var item in ViewBag.Vehicles)
+                                            {
+                                                if (item.Id == ViewBag.Member.Vehicle_Id)
+                                                {
+                                                    <option selected value="@item.Id">@item.Vehicle_No</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Vehicle_No</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">KM</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="memberKm" id="memberKm" value="@ViewBag.Member.Km">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="memberKm" id="memberKm">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Fiyat</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="borrow" id="borrow" value="@ViewBag.Member.Borrow">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="borrow" id="borrow" />
+                                    }
+                                </div>
+                            </div>
+                            <h4 class="form-section"><strong>Banka Bilgileri</strong></h4>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Banka</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="bankName" id="bankName" value="@ViewBag.Member_Pay_Info.Bank_Name">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="bankName" id="bankName">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Kart Sahibi</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="cardOwner" id="cardOwner" value="@ViewBag.Member_Pay_Info.Card_Owner">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="cardOwner" id="cardOwner">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Kart Numarası</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="cardNumber" id="cardNumber" value="@ViewBag.Member_Pay_Info.Card_Number">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="cardNumber" id="cardNumber">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Son Kullanma Tarihi</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="lastExp" id="lastExpDate" value="@ViewBag.Member_Pay_Info.Last_Exp_Date">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="lastExp" id="lastExpDate">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Güvenlik No</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="securtyNo" id="securtyNo" value="@ViewBag.Member_Pay_Info.Securty_No">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="securtyNo" id="securtyNo">
+                                    }
+                                </div>
+                            </div>
+                            <h4 class="form-section"><strong>Fatura Bilgileri</strong></h4>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Ünvan</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="memberTitle" id="memberTitle" value="@ViewBag.Member.Member_Title">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="memberTitle" id="memberTitle">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Tc</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Member != null)
+                                    {
+                                        <input type="text" class="form-control" name="memberTc" id="memberTc" value="@ViewBag.Member.Member_TC">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="memberTc" id="memberTc">
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        @{ int id = 0;}
+                                        @if (ViewBag.Member != null)
+                                        {
+                                            id = ViewBag.Member.Id;
+                                        }
+                                        <button type="button" class="btn purple" onclick=" $.addOrEditMember(@id) "><i class="fa fa-check"></i> Kaydet</button>
+                                        <button type="button" class="btn default">Temizle</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+                <form action="#" class="form-horizontal form-bordered"></form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

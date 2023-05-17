@@ -1,0 +1,268 @@
+﻿@{
+    ViewBag.Title = "User_Levels";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 0;
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/projScripts/guventur.js"></script>
+<script src="~/Scripts/jquery.mask.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Settings/Users"> Kullanıcılar </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Settings/User_Levels"> Seviyeler </a> <i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<span id="afterAlert"></span>
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"> <i class="fa fa-reorder"></i>Seviye Ekle </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal form-row-sepe">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Seviye Adı</label>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" name="levelName" id="levelName">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn purple" onclick="$.addNewLevel()"><i class="fa fa-check"></i> Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"> <i class="fa fa-edit"></i>Seviye Listesi </div>
+                <div class="tools"> <a href="javascript:;" class="reload"> </a> </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                    <thead>
+                        <tr>
+                            <th> Seviye Adı</th>
+                            <th> Kişi Sayısı </th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Levels)
+                        {
+                            <tr id="levelTable">
+                                <td><a href="#" id="tbLevelName" onclick="$.getLevelSettingsById(@item.Id)">@item.Level_Name</a></td>
+                                <td><a href="#"> @ViewBag.Count[i] </a></td>
+                                @if (item.Id == 1)
+                                {
+                                    <td><a href="#" hidden="">Sil</a></td>
+                                }
+                                else
+                                {
+                                    <td><a href="#" value="@item.Id">Sil</a></td>
+                                }
+
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+        </div>
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"> <i class="fa fa-reorder"></i>Admin Seviye Ayarı </div>
+            </div>
+            <div class="portlet-body form">
+                <br>
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <ul class="ver-inline-menu tabbable margin-bottom-10">
+
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab_1">
+                                    <i class="fa fa-book"></i> Firmalar
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_2">
+                                    <i class="fa fa-tachometer"></i> Araçlar
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_3">
+                                    <i class="fa fa-users"></i> Üyeler
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div id="tab_1" class="tab-pane active">
+                                <form action="#">
+                                    <input type="hidden" id="levelIdforCompany">
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <td>
+                                                Yeni bir firma ekleme yapabilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox"  class="make-switch" id="addCompany">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Herhangi bir firma için düzenleme yapabilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox"  class="make-switch" id="editCompany">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Herhangi bir firmayı silebilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="deleteCompany">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Hesapları Görebilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="seeCompanyAccounts">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!--end profile-settings-->
+                                    <div class="margin-top-10">
+                                        <a href="#" class="btn green" onclick="$.editLevelSettings(1)">
+                                            Kaydet
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="tab_2" class="tab-pane">
+                                <form action="#">
+                                    <input type="hidden" id="levelIdforVehicle">
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <td>
+                                                Yeni bir araç ekleme yapabilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="addVehicle">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Herhangi bir araç için düzenleme yapabilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="editVehicle">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Herhangi bir araç silebilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="deleteVehicle">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Hesapları Görebilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="seeVehicleAccounts">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!--end profile-settings-->
+                                    <div class="margin-top-10">
+                                        <a href="#" class="btn green" onclick="$.editLevelSettings(2)">
+                                            Kaydet
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="tab_3" class="tab-pane">
+                                <form action="#">
+                                    <input type="hidden" id="levelIdforMember">
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <td>
+                                                Yeni bir üye ekleme yapabilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="addMember">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Herhangi bir üye için düzenleme yapabilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="editMember">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Herhangi bir üye silebilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="deleteMember">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Hesapları Görebilir.
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="make-switch" id="seeMemberAccounts">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!--end profile-settings-->
+                                    <div class="margin-top-10">
+                                        <a href="#" class="btn green" onclick="$.editLevelSettings(3)">
+                                            Kaydet
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

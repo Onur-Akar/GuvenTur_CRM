@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "Add_New_User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/projScripts/guventur.js"></script>
+<script src="~/Scripts/jquery.mask.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Settings/Users"> Kullanıcılar </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Settings/Add_New_User"> Kullanıcı Ekle </a> <i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"> <i class="fa fa-reorder"></i>Kullanıcı Bilgileri </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal form-row-sepe">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Seviye</label>
+                                <div class="col-md-4">
+                                    <select name="select" id="levels" class="form-control select2me" data-placeholder="Select...">
+                                        <option>Seçiniz</option>
+                                        @foreach (var item in ViewBag.Levels)
+                                        {
+                                            if (ViewBag.User != null)
+                                            {
+                                                if (item.Level_Name == ViewBag.User.Levels.Level_Name)
+                                                {
+                                                    <option selected value="@item.Id">@item.Level_Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Level_Name</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Level_Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Ünvan</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="userTitle" id="userTitle" value="@ViewBag.User.User_Title">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="userTitle" id="userTitle">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Adı</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="userFirstName" id="userFirstName" value="@ViewBag.User.User_First_Name">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="userFirstName" id="userFirstName">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Soyadı</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="userLastName" id="userLastName" value="@ViewBag.User.User_Last_Name">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="userLastName" id="userLastName">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Soyadı</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="password" class="form-control" name="userPassword" id="userPassword" value="@ViewBag.User.Password" disabled>
+                                    }
+                                    else
+                                    {
+                                        <input type="password" class="form-control" name="userPassword" id="userPassword">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Telefon (Hat)</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="phoneLine" id="phoneLine" value="@ViewBag.User.Phone_Line">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="phoneLine" id="phoneLine">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Cep</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="gsm" id="gsm" value="@ViewBag.User.Gsm">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="gsm" id="gsm">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">E-Mail</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="userEmail" id="userEmail" value="@ViewBag.User.Email">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="userEmail" id="userEmail">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Adres</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="addreses" id="addreses" value="@ViewBag.User.Address">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="addreses" id="addreses">
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Tc. No</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <input type="text" class="form-control" name="userTc" id="userTc" value="@ViewBag.User.User_TC">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="userTc" id="userTc">
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        @{ int id = 0;}
+                                        @if (ViewBag.User != null)
+                                        {
+                                            id = ViewBag.User.Id;
+                                        }
+                                        <button type="button" class="btn purple" onclick=" $.addOrEditUSer(@id) "><i class="fa fa-check"></i> Kaydet</button>
+                                        <button type="button" class="btn default">Temizle</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

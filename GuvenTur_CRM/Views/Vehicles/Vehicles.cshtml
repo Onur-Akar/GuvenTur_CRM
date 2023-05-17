@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Vehicles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 0;
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/projScripts/guventur.js"></script>
+<script src="~/Scripts/jquery.mask.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Menü
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="/Vehicles/Add_New_Vehicle">
+                            Yeni Arac Ekle
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Vehicles/Vehicle_Payments">
+                            Ödeme Yap
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Vehicles/Add_Maintenance">
+                            Bakım Ekle
+                        </a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                        <a href="#">
+                            Excel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Yazdır
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Companies/Index">
+                    Anasayfa
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/Vehicles/Vehicles">
+                    Araçlar
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>Araç Listesi
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="reload">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                    <thead>
+                        <tr>
+                            <th> Araç No</th>
+                            <th> Plaka </th>
+                            <th> Güzergah</th>
+                            <th> Cep</th>
+                            <th> E-mail </th>
+                            <th> Güzergah </th>
+                            <th> Üye </th>
+                            <th> Maaş </th>
+                            <th> Ödeme </th>
+                            <th> Kalan </th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var vehicle in ViewBag.Vehicles)
+                    {
+                        <tr>
+                            <td> @vehicle.Vehicle_No </td>
+                            <td><a href="/Vehicles/Vehicle_Detail/@vehicle.Id"> @vehicle.Vehicle_Plate </a></td>
+                            <td>@vehicle.Driver_Name </td>
+                            <td> @vehicle.Gsm </td>
+                            <td> @vehicle.Email </td>
+                            <td> @ViewBag.ServiceNames[i] </td>
+                            <td> @ViewBag.MemberCounts[i] </td>
+                            <td> @ViewBag.Salaries[i] TL </td>
+                            <td> @ViewBag.Payments[i] TL </td>
+                            @{ int total = ViewBag.Salaries[i] - ViewBag.Payments[i];}
+                            <td> @total TL </td>
+                            @{ int id = vehicle.Id;}
+                            <td><a href="#" onclick=" $.deleteVehicle(@id)">Sil</a></td>
+                        </tr>
+                        i++;
+                    }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="well">
+                            <div class="row static-info align-reverse">
+                                <div class="col-md-8 name"> Toplam Araç: </div>
+                                <div class="col-md-3 value"> @ViewBag.TotalVehicles </div>
+                            </div>
+                            <div class="row static-info align-reverse">
+                                <div class="col-md-8 name"> Toplam Maaş: </div>
+                                <div class="col-md-3 value"> @ViewBag.TotalSalaries TL </div>
+                            </div>
+                            <div class="row static-info align-reverse">
+                                <div class="col-md-8 name"> Toplam Ödeme: </div>
+                                <div class="col-md-3 value"> @ViewBag.TotalPayments TL </div>
+                            </div>
+                            <div class="row static-info align-reverse">
+                                <div class="col-md-8 name"> Toplam Kalan: </div>
+                                @{ int totalRemaining = ViewBag.TotalSalaries - ViewBag.TotalPayments;}
+                                <div class="col-md-3 value"> @totalRemaining TL </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->

@@ -1,0 +1,595 @@
+﻿@{
+    ViewBag.Title = "Member_Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 0;
+}
+
+<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Menü
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#">
+                            Excel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Yazdır
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Members/Members"> Üyeler </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Members/Add_New_Member/@ViewBag.Member.Id"> @ViewBag.Member.Member_Name </a> <i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-body">
+                <br>
+                <ul class="nav nav-tabs">
+                    <li class="active"> <a href="#tab_1_1" data-toggle="tab"> Üye Bilgileri </a></li>
+                    <li> <a href="#tab_1_2" data-toggle="tab"> Hesap </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="tab_1_1">
+                        <div class="portlet blue box">
+                            <div class="portlet-title">
+                                <div class="caption">@ViewBag.Member.Member_Name </div>
+                                <div class="actions"> <a href="/Members/Add_New_Member/@ViewBag.Member.Id" class="btn default btn-sm"> <i class="fa fa-pencil"></i> Düzenle </a></div>
+                            </div>
+                            <div class="portlet-body">
+                                <h4 class="form-section"><strong>Üye Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Üye Grubu: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Member_Groups.Member_Group_Name</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Üye Adı: </div>
+                                    <div class="col-md-7 value">@ViewBag.Member.Member_Name</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Ülke: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Countries.Country_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> İl: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Counties.County_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> İlçe: </div>
+                                    <div class="col-md-7 value">@ViewBag.Member.Town.Town_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Adres: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Address </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Telefon: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Phone </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Cep </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Gsm </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> E-mail: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Email </div>
+                                </div>
+                                <h4 class="form-section"><strong>Güzergah ve Ücret Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Güzergah: </div>
+                                    <div class="col-md-7 value"> @ViewBag.ServiceName </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Araç No: </div>
+                                    <div class="col-md-7 value"> @ViewBag.VehicleNo </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> KM: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Km </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Fiyat: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Borrow </div>
+                                </div>
+                                <br>
+                                <h4 class="form-section"><strong>Banka Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Banka: </div>
+                                    <div class="col-md-7 value">@ViewBag.MemberPayInfo.Bank_Name</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Kart Sahibi: </div>
+                                    <div class="col-md-7 value">@ViewBag.MemberPayInfo.Card_Owner</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Kart Numarası: </div>
+                                    <div class="col-md-7 value">@ViewBag.MemberPayInfo.Card_Number</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Son Kullanma Tarihi: </div>
+                                    <div class="col-md-7 value">@ViewBag.MemberPayInfo.Last_Exp_Date</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Güvenlik No: </div>
+                                    <div class="col-md-7 value">@ViewBag.MemberPayInfo.Securty_No</div>
+                                </div>
+                                <h4 class="form-section"><strong>Fatura Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Ünvan: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Member.Member_Title</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Tc: </div>
+                                    <div class="col-md-7 value">@ViewBag.Member.Member_TC</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_2">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-edit"></i>Hesap Hareketleri
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="reload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_2">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:130px;"> Tarih/Saat </th>
+                                            <th> Ödeme Şekli</th>
+                                            <th> Ödenen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.MemberPayments)
+                                        {
+                                            <tr>
+                                                <td>@ViewBag.PayDate[i]/ @ViewBag.PayTime[i]</td>
+                                                <td align="center" width="130"><span class="label label-success"> @item.Payment_Types.Payment_Type </span></td>
+                                                <td>@item.Payment</td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-12"></div>
+                                    <div class="col-md-12">
+                                        <div class="well">
+                                            <div class="row static-info">
+                                                <div class="col-md-2 name"> Toplam Alacak: </div>
+                                                <div class="col-md-8 value"> @ViewBag.Member.Borrow TL </div>
+                                            </div>
+                                            <div class="row static-info">
+                                                <div class="col-md-2 name"> Toplam Alınan: </div>
+                                                <div class="col-md-8 value"> @ViewBag.TotalPayments TL </div>
+                                            </div>
+                                            <div class="row static-info">
+                                                <div class="col-md-2 name"> Toplam Kalan: </div>
+                                                @{ int totalRemaining = ViewBag.Member.Borrow - ViewBag.TotalPayments;}
+                                                <div class="col-md-8 value"> @totalRemaining TL </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_3">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-edit"></i>Araç Listesi
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="reload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-hover" id="sample_editable_1">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th style="width:140px; text-align:center; color: #FF0000;"> Toplam Maaş<br> <span style="color: #000000">2.000 TL</span></th>
+                                            <th style="width:140px; text-align:center; color: #35AA47;"> Toplam Avans<br> <span style="color: #000000">2.000 TL</span></th>
+                                            <th style="width:140px; text-align:center; color: #FFB848;"> Toplam Kalan<br> <span style="color: #000000">2.000 TL</span></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                    <thead>
+                                        <tr>
+                                            <th> Araç No</th>
+                                            <th> Plaka </th>
+                                            <th> Şoför </th>
+                                            <th> Tel </th>
+                                            <th> Cep </th>
+                                            <th> E-Mail </th>
+                                            <th style="width:140px;"> Maaş </th>
+                                            <th style="width:140px;"> Avans </th>
+                                            <th style="width:140px;"> Kalan </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>34 TM 354</td>
+                                            <td>Yeter Kurtul</td>
+                                            <td>0(212) 234 12 45</td>
+                                            <td>0(532) 577 96 34</td>
+                                            <td>yeter@hotmail.com</td>
+                                            <td>5,000 TL</td>
+                                            <td>2,000 TL </td>
+                                            <td>3,000 TL </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>34 MT 247</td>
+                                            <td>Mehmet Tunç</td>
+                                            <td>0(212) 234 12 45</td>
+                                            <td>0(532) 577 96 34</td>
+                                            <td>mehmet@hotmail.com</td>
+                                            <td>5,000 TL </td>
+                                            <td>2,000 TL </td>
+                                            <td>3,000 TL </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>34 KMT 14</td>
+                                            <td>Samet Ayder</td>
+                                            <td>0(212) 234 12 45</td>
+                                            <td>0(532) 577 96 34</td>
+                                            <td>samet@hotmail.com</td>
+                                            <td>5,000 TL </td>
+                                            <td>2,000 TL </td>
+                                            <td>3,000 TL </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="well">
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Toplam Araç: </div>
+                                                <div class="col-md-3 value"> 3 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_5">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="fa fa-edit"></i>Banka Hareketleri </div>
+                                <div class="tools"> <a href="javascript:;" class="reload"> </a> </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="table-toolbar">
+                                    <div class="btn-group pull-right">
+                                        <ul class="dropdown-menu pull-right">
+                                            <li> <a href="#"> Print </a> </li>
+                                            <li> <a href="#"> Save as PDF </a> </li>
+                                            <li> <a href="#"> Export to Excel </a> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_2">
+                                    <thead>
+                                        <tr>
+                                            <th> Tarih/Saat </th>
+                                            <th> Ödeme Şekli</th>
+                                            <th> Kart Adı </th>
+                                            <th> Firma </th>
+                                            <th> Ürün Grubu </th>
+                                            <th> Ürün Adı </th>
+                                            <th> Ödenen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td width="130">
+                                                <a href="#basic" data-toggle="modal"> 25.12.2014 / 14:00 </a>
+                                            </td>
+                                            <td width="120" align="center"><span class="label label-success"> Kredi Kartı </span></td>
+                                            <td>
+                                                <a href="#basic" data-toggle="modal">Fırat - Garanti Kredi Kartı</a>
+                                            </td>
+                                            <td>
+                                                <a href="#basic" data-toggle="modal"> Ramer Partners</a>
+                                            </td>
+                                            <td>
+                                                <a href="#basic" data-toggle="modal"> Matbaa</a>
+                                            </td>
+                                            <td>
+                                                <a href="#basic" data-toggle="modal"> Kartvizit</a>
+                                            </td>
+                                            <td>
+                                                <a href="#basic" data-toggle="modal"> 5000 TL</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>25.12.2014 / 14:00</td>
+                                            <td align="center"><span class="label label-danger"> Kredi Kartı </span></td>
+                                            <td>Fırat - Garanti Kredi Kartı</td>
+                                            <td>Hartaş Mermer</td>
+                                            <td>Tasarım + Kodlama</td>
+                                            <td> Kurumsal Web</td>
+                                            <td> 800 TL </td>
+                                        </tr>
+                                        <tr>
+                                            <td>25.12.2014 / 14:00</td>
+                                            <td align="center"><span class="label label-success"> Havale </span></td>
+                                            <td>Tanju - Garanti Paracard</td>
+                                            <td>Külsan</td>
+                                            <td>Yazılım</td>
+                                            <td> PDKS</td>
+                                            <td>
+                                                232
+                                                TL
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>25.12.2014 / 14:00</td>
+                                            <td align="center"><span class="label label-danger"> Havale </span></td>
+                                            <td>Tanju - Garanti Paracard</td>
+                                            <td> Ahmet Sezil</td>
+                                            <td> Bilgisayar</td>
+                                            <td> Ram</td>
+                                            <td>
+                                                132
+                                                TL
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>25.12.2014 / 14:00</td>
+                                            <td align="center"><span class="label label-danger"> Kredi Kartı </span></td>
+                                            <td>Fırat - Garanti Kredi Kartı</td>
+                                            <td> Kenan Elmas</td>
+                                            <td> Telefon Tamir</td>
+                                            <td> İphone 6 Ekran</td>
+                                            <td>
+                                                462
+                                                TL
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>25.12.2014 / 14:00</td>
+                                            <td align="center"><span class="label label-success"> Kredi Kartı </span></td>
+                                            <td>Fırat - Garanti Kredi Kartı</td>
+                                            <td> Splat</td>
+                                            <td> Matbaa</td>
+                                            <td> Etiket</td>
+                                            <td>
+                                                62
+                                                TL
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="well">
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Gelir: </div>
+                                                <div class="col-md-3 value"> 1.125.20 TL </div>
+                                            </div>
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Gider: </div>
+                                                <div class="col-md-3 value"> 1.125.20 TL </div>
+                                            </div>
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Borç: </div>
+                                                <div class="col-md-3 value"> 1.125.20 TL </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+        <div class="portlet box blue">
+            <div class="portlet-body">
+                <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <div class="col-md-12">
+                                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                                    <ul class="page-breadcrumb breadcrumb">
+                                        <li class="btn-group">
+                                            <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                                                <span>
+                                                    Menü
+                                                </span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right" role="menu">
+                                                <li>
+                                                    <a href="#">
+                                                        Excel
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Members/Member_Payments">
+                                                        Yazdır
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li> Sedat Köse </li>
+                                    </ul>
+                                    <!-- END PAGE TITLE & BREADCRUMB-->
+                                </div>
+                                <div class="portlet blue box">
+                                    <div class="portlet-title">
+                                        <div class="caption"> Üye Bilgileri </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row static-info">
+                                            <div class="col-md-4 name"> Üye Grubu: </div>
+                                            <div class="col-md-7 value"> Öğrenci</div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-4 name"> Ürün Adı: </div>
+                                            <div class="col-md-7 value"> Sedat Köse</div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-4 name"> KM: </div>
+                                            <div class="col-md-7 value"> 15 </div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-4 name"> Ödemesi: </div>
+                                            <div class="col-md-7 value"> 500 TL </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portlet box blue">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-edit"></i>Ödeme Listesi
+                                        </div>
+                                        <div class="tools">
+                                            <a href="javascript:;" class="reload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                            <thead>
+                                                <tr>
+                                                    <th> Tarih/Saat </th>
+                                                    <th> Ödeme Şekli</th>
+                                                    <th> Ödenen</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td width="130">
+                                                        25.12.2014 / 14:00
+                                                    </td>
+                                                    <td width="120" align="center">
+
+                                                        <span class="label label-success">
+                                                            Nakit
+                                                        </span>
+
+                                                    </td>
+                                                    <td> 5000 TL</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25.12.2014 / 14:00</td>
+                                                    <td align="center">
+                                                        <span class="label label-danger">
+                                                            Kredi Kartı
+                                                        </span>
+                                                    </td>
+                                                    <td> 800 TL </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25.12.2014 / 14:00</td>
+                                                    <td align="center">
+                                                        <span class="label label-success">
+                                                            Havale
+                                                        </span>
+                                                    </td>
+                                                    <td> 232 TL</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25.12.2014 / 14:00</td>
+                                                    <td align="center">
+                                                        <span class="label label-success">
+                                                            Çek
+                                                        </span>
+                                                    </td>
+                                                    <td> 132 TL</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25.12.2014 / 14:00</td>
+                                                    <td align="center">
+                                                        <span class="label label-danger">
+                                                            Çek
+                                                        </span>
+                                                    </td>
+                                                    <td> 462  TL</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>25.12.2014 / 14:00</td>
+                                                    <td align="center">
+                                                        <span class="label label-success">
+                                                            Nakit
+                                                        </span>
+                                                    </td>
+                                                    <td> 62 TL</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-md-12"></div>
+                                            <div class="col-md-12">
+                                                <div class="well">
+                                                    <div class="row static-info align-reverse">
+                                                        <div class="col-md-8 name"> Ödenen: </div>
+                                                        <div class="col-md-4 value"> 1,125.20 TL </div>
+                                                    </div>
+                                                    <div class="row static-info align-reverse">
+                                                        <div class="col-md-8 name"> Kalan:</div>
+                                                        <div class="col-md-4 value"> 1,260.00 TL </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- END PORTLET-->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+

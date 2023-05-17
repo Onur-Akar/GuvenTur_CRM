@@ -1,0 +1,489 @@
+﻿@{
+    ViewBag.Title = "Add_New_Vehicle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/projScripts/guventur.js"></script>
+<script src="~/Scripts/inputmask.js"></script>
+<script src="~/Scripts/jquery.inputmask.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+
+        $("#driverTc").inputmask("99999999999");
+        $("#gsm").inputmask("0(999) 999 99 99");
+        $("#phones").inputmask("0(999) 999 99 99");
+        $("#vhcPlate").inputmask("99 aaaa 9999");
+        $("#vhcSalary").inputmask("999.999.999 ₺", {numberInput: true, radixPoint: ',' });
+        $("#firstKmMain").inputmask("999.999.999 KM",{numberInput: true, radixPoint:'.'});
+        $("#nextKmMain").inputmask("999.999.999 KM"),{numberInput: true, radixPoint:'.'};
+        $("#trffcInsuranceDate").inputmask("d/m/y", { "placeholder": "gg.aa.yyyy" });
+        $("#examiDate").inputmask("d/m/y", { "placeholder": "gg.aa.yyyy" });
+    });
+
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Vehicles/Vehicles"> Araçlar </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Vehicles/Add_New_Vehicle"> Yeni Araç Ekle </a> <i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-reorder"></i>Araç Bilgileri
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal form-row-sepe">
+                        <div class="form-body">
+                            <h4 class="form-section"><strong>Şoför Bilgileri</strong></h4>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Tc</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="driverTC" id="driverTc" value="@ViewBag.Vehicle.Driver_TC" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="driverTC" id="driverTc" required />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Şoför Adı</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="driverName" id="driverName" value="@ViewBag.Vehicle.Driver_Name" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="driverName" id="driverName" required />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Ülke</label>
+                                <div class="col-md-4">
+                                    <select name="select2" id="countries" class="form-control select2me" data-placeholder="Ülke Seçiniz">
+                                        @foreach (var item in ViewBag.Countries)
+                                        {
+                                            if (ViewBag.Vehicle != null)
+                                            {
+                                                if (item.Country_Name == ViewBag.Vehicle.Countries.Country_Name)
+                                                {
+                                                    <option selected value="@item.Id">@item.Country_Name</option>
+                                                }
+                                            }
+                                            <option value="@item.Id">@item.Country_Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">İl</label>
+                                <div class="col-md-4">
+                                    <select name="select" id="counties" class="form-control select2me" data-placeholder="Şehir Seçiniz" onchange="$.getTownsById()">
+                                        @foreach (var item in ViewBag.Counties)
+                                        {
+                                            if (ViewBag.Vehicle != null)
+                                            {
+                                                if (item.County_Name == ViewBag.Vehicle.Counties.County_Name)
+                                                {
+                                                    <option selected onselect="$.getTownsById()" value="@item.Id">@item.County_Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.County_Name</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.County_Name</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">İlçe</label>
+                                <div class="col-md-4">
+                                    <select name="select3" id="towns" class="form-control select2me" data-placeholder="İlçe Seçiniz">
+                                        @if (ViewBag.Vehicle != null)
+                                        {
+                                            foreach (var item in ViewBag.Towns)
+                                            {
+                                                if (item.Town_Name == ViewBag.Vehicle.Town.Town_Name)
+                                                {
+                                                    <option selected value="@item.Id">@item.Town_Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Town_Name</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Adres</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="address" id="addreses" value="@ViewBag.Vehicle.Address" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="address" id="addreses" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Telefon</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="phone" id="phones" value="@ViewBag.Vehicle.Phone" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="phone" id="phones" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Cep</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="gsm" id="gsm" value="@ViewBag.Vehicle.Gsm" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="gsm" id="gsm" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">E-Mail</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="email" id="vhcEmail" value="@ViewBag.Vehicle.Email" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="email" id="vhcEmail" />
+                                    }
+                                </div>
+                            </div>
+
+                            <h4 class="form-section"><strong>Araç ve Maaş Bilgileri</strong></h4>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Araç No</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="vhcNo" id="vhcNo" value="@ViewBag.Vehicle.Vehicle_No" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="vhcNo" id="vhcNo" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Plaka</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="vhcPlate" id="vhcPlate" value="@ViewBag.Vehicle.Vehicle_Plate" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="vhcPlate" id="vhcPlate" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Güzergah</label>
+                                <div class="col-md-4">
+                                    <select name="services" id="services" class="form-control select2me" data-placeholder="Select...">
+                                        <option>Seçiniz</option>
+                                        @foreach (var item in ViewBag.Companies)
+                                        {
+                                            if (ViewBag.Vehicle != null)
+                                            {
+                                                if (item.Id == ViewBag.Vehicle.Service_Id)
+                                                {
+                                                    <option selected value="@item.Id">@item.Service_Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Service_Name</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Service_Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Maaş</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.Vehicle != null)
+                                    {
+                                        <input type="text" class="form-control" name="vhcSalary" id="vhcSalary" value="@ViewBag.Vehicle.Salary" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="vhcSalary" id="vhcSalary" />
+                                    }
+                                </div>
+                            </div>
+
+                            <h4 class="form-section"><strong>Bakım ve Evrak Bilgileri</strong></h4>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">İlk KM Bakımı</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.VehicleFiles != null)
+                                    {
+                                        <input type="text" class="form-control" name="firstKmMain" id="firstKmMain" value="@ViewBag.VehicleFiles.First_Km_Maintenance" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="firstKmMain" id="firstKmMain" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Sonraki KM Bakımı</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.VehicleFiles != null)
+                                    {
+                                        <input type="text" class="form-control" name="nextKmMain" id="nextKmMain" value="@ViewBag.VehicleFiles.Next_Km_Maintenance" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="nextKmMain" id="nextKmMain" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Trafik Sigorta Tarihi</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.VehicleFiles != null)
+                                    {
+                                        <input type="text" class="form-control" name="trffcInsuranceDate" id="trffcInsuranceDate" value="@ViewBag.VehicleFiles.Traffic_Insurance_Date" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="trffcInsuranceDate" id="trffcInsuranceDate" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Muayene Tarihi</label>
+                                <div class="col-md-4">
+                                    @if (ViewBag.VehicleFiles != null)
+                                    {
+                                        <input type="text" class="form-control" name="examiDate" id="examiDate" value="@ViewBag.VehicleFiles.Examination_Date" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" name="examiDate" id="examiDate" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3"> Ruhsat Örneği</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput"> <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"> </span> </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new"> Dosya Seç </span> <span class="fileinput-exists"> Değiştir </span>
+                                                @if (ViewBag.VehicleFiles != null)
+                                                {
+                                                    <input type="file" name="..." id="fileLicenseSample" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="file" name="..." id="fileLicenseSample" />
+                                                }
+                                            </span> <a href="#" class="input-group-addon btn default fileinput-exists" data-dismiss="fileinput"> Sil </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Trafik Sigorta Örneği</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput"> <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"> </span> </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new"> Dosya Seç </span> <span class="fileinput-exists"> Değiştir </span>
+                                                @if (ViewBag.VehicleFiles != null)
+                                                {
+                                                    <input type="file" name="..." id="fileTrffcInsSample" value="@ViewBag.VehicleFiles.Traffic_Insurance_Sample" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="file" name="..." id="fileTrffcInsSample" />
+                                                }
+                                            </span> <a href="#" class="input-group-addon btn default fileinput-exists" data-dismiss="fileinput"> Sil </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Muayene</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput"> <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"> </span> </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new"> Dosya Seç </span> <span class="fileinput-exists"> Değiştir </span>
+                                                @if (ViewBag.VehicleFiles != null)
+                                                {
+                                                    <input type="file" name="..." id="fileExamination" value="@ViewBag.VehicleFiles.Examination" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="file" name="..." id="fileExamination" />
+                                                }
+                                            </span> <a href="#" class="input-group-addon btn default fileinput-exists" data-dismiss="fileinput"> Sil </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Ehliyet</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput"> <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"> </span> </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new"> Dosya Seç </span> <span class="fileinput-exists"> Değiştir </span>
+                                                @if (ViewBag.VehicleFiles != null)
+                                                {
+                                                    <input type="file" name="..." id="fileDrvLicense" value="@ViewBag.VehicleFiles.Driver_License" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="file" name="..." id="fileDrvLicense" />
+                                                }
+                                            </span> <a href="#" class="input-group-addon btn default fileinput-exists" data-dismiss="fileinput"> Sil </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Sicil Kaydı</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput"> <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"> </span> </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new"> Dosya Seç </span> <span class="fileinput-exists"> Değiştir </span>
+                                                @if (ViewBag.VehicleFiles != null)
+                                                {
+                                                    <input type="file" name="..." id="fileRegistryRecord" value="@ViewBag.VehicleFiles.Registry_Record" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="file" name="..." id="fileRegistryRecord" />
+                                                }
+                                            </span> <a href="#" class="input-group-addon btn default fileinput-exists" data-dismiss="fileinput"> Sil </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">GBT</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput"> <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"> </span> </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new"> Dosya Seç </span> <span class="fileinput-exists"> Değiştir </span>
+                                                @if (ViewBag.VehicleFiles != null)
+                                                {
+                                                    <input type="file" name="..." id="fileGbt" value="@ViewBag.VehicleFiles.Gbt" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="file" name="..." id="fileGbt" />
+                                                }
+                                            </span> <a href="#" class="input-group-addon btn default fileinput-exists" data-dismiss="fileinput"> Sil </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Sağlık Raporu</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput"> <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"> </span> </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new"> Dosya Seç </span> <span class="fileinput-exists"> Değiştir </span>
+                                                @if (ViewBag.VehicleFiles != null)
+                                                {
+                                                    <input type="file" name="..." id="fileHealthReport" value="@ViewBag.VehicleFiles.Health_Report" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="file" name="..." id="fileHealthReport" />
+                                                }
+                                            </span> <a href="#" class="input-group-addon btn default fileinput-exists" data-dismiss="fileinput"> Sil </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        @{ int id = 0;}
+                                        @if (ViewBag.Vehicle != null)
+                                        {
+                                            id = ViewBag.Vehicle.Id;
+                                        }
+                                        <button type="button" class="btn purple" onclick="$.addOrEditVehicle(@id)"><i class="fa fa-check"></i> Kaydet</button>
+                                        <button type="button" class="btn default">Temizle</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

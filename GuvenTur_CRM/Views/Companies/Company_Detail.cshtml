@@ -1,0 +1,282 @@
+﻿@{
+    ViewBag.Title = "Company_Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+    int j = 0;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Menü
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#">
+                            Excel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Yazdır
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li> <i class="fa fa-home"></i> <a href="/Companies/Index"> Anasayfa </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="/Companies/Index"> Firmalar </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="Companies/Company_Detail/@ViewBag.Company.Id"> @ViewBag.Company.Service_Name </a> <i class="fa fa-angle-right"></i> </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-body">
+                <br>
+                <ul class="nav nav-tabs">
+                    <li class="active"> <a href="#tab_1_1" data-toggle="tab"> Güzergah Bilgileri </a></li>
+                    <li> <a href="#tab_1_2" data-toggle="tab"> Üye Listesi </a></li>
+                    <li> <a href="#tab_1_3" data-toggle="tab"> Araç Listesi </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="tab_1_1">
+                        <div class="portlet blue box">
+                            <div class="portlet-title">
+                                <div class="caption"> Yeni Levent Lisesi </div>
+                                @if (@ViewBag.Edit_Company)
+                                {
+                                    <div class="actions">
+                                        <a href="/Companies/Add_New_Company/@ViewBag.Company.Id" class="btn default btn-sm"> <i class="fa fa-pencil"></i> Düzenle </a>
+                                    </div>
+                                }                            
+                            </div>
+                            <div class="portlet-body">
+                                <h4 class="form-section"><strong>Güzergah Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Güzergah: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Service_Name</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Ülke: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Countries.Country_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> İl: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Counties.County_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> İlçe: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Town.Town_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Adres: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Address </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Telefon: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Phone </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Fax </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Fax </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> E-mail: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Email </div>
+                                </div>
+                                <h4 class="form-section"><strong>Yetkili Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Yetkili: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Authorized_Name </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Yetkili Cep: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Authorized_Phone </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Yetkili E-mail: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Authorized_Email </div>
+                                </div>
+                                <br>
+                                <h4 class="form-section"><strong>Fatura Bilgileri</strong></h4>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Ünvan: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Company_Title</div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Vergi Dairesi: </div>
+                                    <div class="col-md-7 value"> @ViewBag.Company.Tax_Office </div>
+                                </div>
+                                <div class="row static-info">
+                                    <div class="col-md-2 name"> Vergi No: </div>
+                                    <div class="col-md-7 value">@ViewBag.Company.Tax_Number</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_2">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-edit"></i>Üye Listesi
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="reload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th style="width: 140px; text-align: center; color: #FF0000;"> Toplam Alacak<br> <span style="color: #000000">@ViewBag.TotalBorrows TL</span></th>
+                                        <th style="width: 140px; text-align: center; color: #35AA47;"> Toplam Alınan<br> <span style="color: #000000">@ViewBag.TotalPayments TL</span></th>
+                                        @{ int totalRemaining = ViewBag.TotalBorrows - ViewBag.TotalPayments;}
+                                        <th style="width: 140px; text-align: center; color: #FFB848;"> Toplam Kalan<br> <span style="color: #000000">@totalRemaining TL</span></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-striped table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th> Üye Grubu</th>
+                                        <th> Üye Adı </th>
+                                        <th> Tel </th>
+                                        <th> Cep </th>
+                                        <th> E-mail </th>
+                                        <th style="width: 140px;"> Alacak </th>
+                                        <th style="width: 140px;"> Alınan </th>
+                                        <th style="width: 140px;"> Kalan </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in ViewBag.Members)
+                                    {
+                                        <tr>
+                                            <td>@item.Member_Groups.Member_Group_Name</td>
+                                            <td><a href="/Members/Member_Detail/@item.Id">@item.Member_Name</a></td>
+                                            <td>@item.Phone</td>
+                                            <td>@item.Gsm</td>
+                                            <td>@item.Email</td>
+                                            <td>@ViewBag.Borrows[i] TL </td>
+                                            <td>@ViewBag.Payments[i] TL </td>
+                                            @{ int total = ViewBag.Borrows[i] - ViewBag.Payments[i];}
+                                            <td>@total TL </td>
+                                        </tr>
+                                        i++;
+                                    }
+
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="well">
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Toplam Üye: </div>
+                                                <div class="col-md-3 value"> @i </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab_1_3">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-edit"></i>Araç Listesi
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="reload">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th style="width: 140px; text-align: center; color: #FF0000;"> Toplam Maaş<br> <span style="color: #000000">@ViewBag.TotalSalaries TL</span></th>
+                                            <th style="width: 140px; text-align: center; color: #35AA47;"> Toplam Ödeme<br> <span style="color: #000000">@ViewBag.TotalVehcPayments TL</span></th>
+                                            @{ int totalVehcRemaining = ViewBag.TotalSalaries - ViewBag.TotalVehcPayments;}
+                                            <th style="width: 140px; text-align: center; color: #FFB848;"> Toplam Kalan<br> <span style="color: #000000">@totalVehcRemaining TL</span></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-striped table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th> Araç No</th>
+                                            <th> Plaka </th>
+                                            <th> Şoför </th>
+                                            <th> Tel </th>
+                                            <th> Cep </th>
+                                            <th> E-Mail </th>
+                                            <th style="width: 140px;"> Maaş </th>
+                                            <th style="width: 140px;"> Ödenen </th>
+                                            <th style="width: 140px;"> Kalan </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in ViewBag.Vehicles)
+                                    {
+
+                                        <tr>
+                                            <td>@item.Vehicle_No</td>
+                                            <td><a href="/Vehicles/Vehicle_Detail/@item.Id">@item.Vehicle_Plate</a></td>
+                                            <td>@item.Driver_Name</td>
+                                            <td>@item.Phone</td>
+                                            <td>@item.Gsm</td>
+                                            <td>@item.Email</td>
+                                            <td>@ViewBag.Salaries[j] TL </td>
+                                            <td>@ViewBag.VehcPayments[j] TL </td>
+                                            @{ int total = ViewBag.Salaries[j] - ViewBag.VehcPayments[j];}
+                                            <td>@total TL </td>
+                                        </tr>
+                                        j++;
+                                    }
+
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="well">
+                                            <div class="row static-info align-reverse">
+                                                <div class="col-md-8 name"> Toplam Araç: </div>
+                                                <div class="col-md-3 value"> @j </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
